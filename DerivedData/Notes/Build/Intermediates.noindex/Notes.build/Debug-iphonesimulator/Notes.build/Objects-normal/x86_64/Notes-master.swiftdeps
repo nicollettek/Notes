@@ -1,0 +1,8 @@
+version: "Apple Swift version 4.0 (swiftlang-900.0.65.2 clang-900.0.37)"
+options: "84f0aee1b8316ae0b09193bf8a824a2c"
+build_time: [1508416099, 863870000]
+inputs:
+  "/Users/nicollette/Projects/Notes/Notes/NotesViewController.swift": [1508415886, 0]
+  "/Users/nicollette/Projects/Notes/Notes/AppDelegate.swift": [1508412526, 0]
+  "/Users/nicollette/Projects/Notes/Notes/AddNoteViewController.swift": [1508416099, 0]
+  "/Users/nicollette/Projects/Notes/Notes/Note.swift": [1508415302, 0]

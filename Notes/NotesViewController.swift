@@ -1,11 +1,11 @@
 import UIKit
 
-class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NotesViewController: UIViewController, UITableViewDataSource {
 
     var navigationViewController: UINavigationController?
-    private var myTableView: UITableView!
-    private let myArray: NSArray = ["First","Second","Third"]
-
+    @IBOutlet weak var notesTableView: UITableView!
+    let FirstNoteCell = "NoteCell"
+    
     func setNavigationViewControler(_ navigationViewController:UINavigationController) {
         self.navigationViewController = navigationViewController
     }
@@ -21,15 +21,15 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: backButton)
         self.navigationItem.title = "Notes"
         
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
-        myTableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
-        myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
-        myTableView.dataSource = self
-        myTableView.delegate = self
-        self.view.addSubview(myTableView)
+        notesTableView.register(CustomNoteTableViewCell.self, forCellReuseIdentifier: FirstNoteCell)
+        notesTableView.dataSource = self
+        notesTableView.delegate = self
+        notesTableView.rowHeight = 50
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            notesTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,21 +41,6 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil)
         self.navigationViewController?.pushViewController(addNoteViewController, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Num: \(indexPath.row)")
-        print("Value: \(myArray[indexPath.row])")
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
-        cell.textLabel!.text = "\(myArray[indexPath.row])"
-        return cell
-    }
 
     /*
     // MARK: - Navigation
@@ -66,5 +51,23 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Pass the selected object to the new view controller.
     }
     */
-
 }
+
+extension NotesViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Num: \(indexPath.row)")
+        print("Value: \(NoteKeeper.sharedInstance.notes[indexPath.row].title)")
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return NoteKeeper.sharedInstance.notes.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FirstNoteCell, for: indexPath as IndexPath) as! CustomNoteTableViewCell
+        cell.textLabel!.text = "\(NoteKeeper.sharedInstance.notes[indexPath.row].title)"
+        return cell
+    }
+}
+

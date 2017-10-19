@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotesViewController" customModule="Notes" customModuleProvider="target">
             <connections>
+                <outlet property="notesTableView" destination="eoo-YH-A0M" id="30I-hW-pKD"/>
                 <outlet property="view" destination="Zkq-tx-wLd" id="b4v-Bf-lBS"/>
             </connections>
         </placeholder>

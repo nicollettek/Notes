@@ -1,7 +1,10 @@
 import UIKit
 
 class AddNoteViewController: UIViewController {
-
+    
+    @IBOutlet weak var noteTextView: UITextView!
+    @IBOutlet weak var titleTextFiled: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,10 +21,22 @@ class AddNoteViewController: UIViewController {
         saveButton.setTitleColor(saveButton.tintColor, for: .normal)
         saveButton.addTarget(self, action: #selector(self.saveNote(_:)), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveButton)
+        
     }
+    
 
     @IBAction func saveNote(_ sender: UIButton) {
+        guard let content = noteTextView?.text else {return}
+        guard var title = titleTextFiled?.text else {return}
+        if title.isEmpty {
+            title = "Note"
+        }
+        let note = Note(title: title, content: content)
+
+        NoteKeeper.sharedInstance.addNote(note: note)
+
         let _ = self.navigationController?.popViewController(animated: true)
+        
     }
     
     @IBAction func backAction(_ sender: UIButton) {

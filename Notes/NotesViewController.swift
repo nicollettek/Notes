@@ -58,6 +58,9 @@ extension NotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
         print("Value: \(NoteKeeper.sharedInstance.notes[indexPath.row].title)")
+        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil)
+        addNoteViewController.setUpNote(NoteKeeper.sharedInstance.notes[indexPath.row])
+        self.navigationViewController?.pushViewController(addNoteViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,6 +70,7 @@ extension NotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FirstNoteCell, for: indexPath as IndexPath) as! CustomNoteTableViewCell
         cell.textLabel!.text = "\(NoteKeeper.sharedInstance.notes[indexPath.row].title)"
+        cell.noteId = indexPath.row
         return cell
     }
 }

@@ -3,7 +3,9 @@ import UIKit
 class AddNoteViewController: UIViewController {
     
     @IBOutlet weak var noteTextView: UITextView!
-    @IBOutlet weak var titleTextFiled: UITextField!
+    @IBOutlet weak var titleTextField: UITextField!
+    
+    var savedNote: Note?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,20 +24,35 @@ class AddNoteViewController: UIViewController {
         saveButton.addTarget(self, action: #selector(self.saveNote(_:)), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveButton)
         
+        guard let note = savedNote else {return}
+        titleTextField?.text = note.title
+        noteTextView?.text = note.content
+        
     }
     
 
     @IBAction func saveNote(_ sender: UIButton) {
         guard let content = noteTextView?.text else {return}
-        guard var title = titleTextFiled?.text else {return}
+        guard var title = titleTextField?.text else {return}
         if title.isEmpty {
             title = "Note"
         }
-        let note = Note(title: title, content: content)
-
-        NoteKeeper.sharedInstance.addNote(note: note)
-
+        
+        if savedNote != nil {
+            savedNote?.content = content
+            savedNote?.title = title
+        } else {
+            let note = Note(title: title, content: content)
+            
+            NoteKeeper.sharedInstance.addNote(note: note)
+        }
+        
         let _ = self.navigationController?.popViewController(animated: true)
+        
+    }
+    
+    func setUpNote(_ note: Note) {
+        savedNote = note
         
     }
     

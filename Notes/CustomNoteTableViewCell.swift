@@ -2,21 +2,33 @@ import UIKit
 
 class CustomNoteTableViewCell: UITableViewCell {
     
+    // Variables
+    private var _noteId: Int = -1
+    
+    // Constructor
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
     }
     
+    // Constructor
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Destructor
+    deinit {
+        actionButton.removeTarget(self, action: #selector(changeNoteStatus), for: .touchUpInside)
+    }
+    
+    // Label getter
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    // UI switch getter
     let actionButton: UISwitch = {
         let button = UISwitch()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -24,22 +36,26 @@ class CustomNoteTableViewCell: UITableViewCell {
         
     }()
     
-    @objc func handleAction() {
-        print("tapped")
+    // Set and Get note id when note status is changed
+    var noteId: Int {
+        set { _noteId =  newValue }
+        get { return _noteId }
     }
     
+    // UISwitch delegate if switch is on or off
+    @objc func changeNoteStatus() {
+        print("note id: \(noteId)")
+        NoteKeeper.sharedInstance.notes[noteId].isDone = actionButton.isOn
+    }
+    
+    // Called in constructor to init all neccessary data
     func setupViews() {
         
         addSubview(nameLabel)
-        addSubview(actionButton)
+        self.accessoryView = actionButton
         
-        actionButton.addTarget(self, action: #selector(handleAction), for: .touchUpInside)
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]-8-[v1(80)]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel, "v1": actionButton]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": actionButton]))
+        // add delegate for action button is pressed
+        actionButton.addTarget(self, action: #selector(changeNoteStatus), for: .touchUpInside)
         
     }
-    
-
 }

@@ -2,12 +2,19 @@ import UIKit
 
 class NotesViewController: UIViewController, UITableViewDataSource {
 
-    var navigationViewController: UINavigationController?
     @IBOutlet weak var notesTableView: UITableView!
     let FirstNoteCell = "NoteCell"
     
-    func setNavigationViewControler(_ navigationViewController:UINavigationController) {
-        self.navigationViewController = navigationViewController
+    var noteKeeper: NoteKeeper?
+    
+    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, noteKeeper: NoteKeeper?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.noteKeeper = noteKeeper
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.noteKeeper = nil
     }
     
     override func viewDidLoad() {
@@ -38,38 +45,36 @@ class NotesViewController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func addNewNote(_ sender: UIBarButtonItem) {
-        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil)
-        self.navigationViewController?.pushViewController(addNoteViewController, animated: true)
+        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil, noteKeeper: noteKeeper)
+        // create navigation controller
+        let navigationViewController = UINavigationController(rootViewController: addNoteViewController)
+        self.present(navigationViewController, animated: true, completion: nil)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
 extension NotesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
-        print("Value: \(NoteKeeper.sharedInstance.notes[indexPath.row].title)")
-        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil)
-        addNoteViewController.setUpNote(NoteKeeper.sharedInstance.notes[indexPath.row])
-        self.navigationViewController?.pushViewController(addNoteViewController, animated: true)
+        guard let noteKeeper = noteKeeper else {return}
+        print("Value: \(noteKeeper.notes[indexPath.row].title)")
+        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil, noteKeeper: noteKeeper)
+        addNoteViewController.setUpNote(noteKeeper.notes[indexPath.row])
+        // create navigation controller
+        let navigationViewController = UINavigationController(rootViewController: addNoteViewController)
+        self.present(navigationViewController, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NoteKeeper.sharedInstance.notes.count
+        guard let noteKeeper = noteKeeper else {return 0}
+        return noteKeeper.notes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FirstNoteCell, for: indexPath as IndexPath) as! CustomNoteTableViewCell
-        cell.textLabel!.text = "\(NoteKeeper.sharedInstance.notes[indexPath.row].title)"
+        guard let noteKeeper = noteKeeper else {return UITableViewCell()}
+        cell.setNoteKeeper(noteKeeper: noteKeeper)
+        cell.textLabel!.text = "\(noteKeeper.notes[indexPath.row].title)"
         cell.noteId = indexPath.row
         return cell
     }

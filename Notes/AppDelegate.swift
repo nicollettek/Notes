@@ -4,17 +4,18 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
-        let noteViewController = NotesViewController(nibName: "NotesViewController", bundle: Bundle.main)
+        
+        let noteKeeper = NoteKeeper()
+        
+        let noteViewController = NotesViewController(nibName: "NotesViewController", bundle: Bundle.main, noteKeeper: noteKeeper)
         let navigationViewController = UINavigationController(rootViewController: noteViewController)
-        noteViewController.setNavigationViewControler(navigationViewController)
         window!.rootViewController = navigationViewController
         window!.makeKeyAndVisible()
-        
+
         return true
     }
 

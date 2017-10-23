@@ -22,17 +22,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2mZ-HK-qsB">
-                    <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                </navigationBar>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ey3-Ud-if3">
-                    <rect key="frame" x="16" y="131" width="343" height="516"/>
+                    <rect key="frame" x="16" y="73" width="343" height="574"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JfD-YQ-rzu">
-                    <rect key="frame" x="16" y="93" width="343" height="30"/>
+                    <rect key="frame" x="16" y="27" width="343" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
@@ -40,16 +37,13 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="JfD-YQ-rzu" firstAttribute="leading" secondItem="ey3-Ud-if3" secondAttribute="leading" id="CG3-eD-J2Q"/>
-                <constraint firstAttribute="bottom" secondItem="ey3-Ud-if3" secondAttribute="bottom" constant="20" symbolic="YES" id="Cso-nc-jiz"/>
-                <constraint firstItem="2mZ-HK-qsB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Hbe-pT-2X5"/>
-                <constraint firstItem="JfD-YQ-rzu" firstAttribute="trailing" secondItem="ey3-Ud-if3" secondAttribute="trailing" id="YN7-zB-BAM"/>
-                <constraint firstItem="JfD-YQ-rzu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="hlO-Td-OyW"/>
-                <constraint firstItem="2mZ-HK-qsB" firstAttribute="centerX" secondItem="JfD-YQ-rzu" secondAttribute="centerX" id="l60-ez-M30"/>
-                <constraint firstAttribute="trailing" secondItem="2mZ-HK-qsB" secondAttribute="trailing" id="lOF-io-Osi"/>
-                <constraint firstItem="ey3-Ud-if3" firstAttribute="top" secondItem="JfD-YQ-rzu" secondAttribute="bottom" constant="8" symbolic="YES" id="mO2-0u-Gvj"/>
-                <constraint firstItem="2mZ-HK-qsB" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="uHi-Em-HGj"/>
-                <constraint firstItem="JfD-YQ-rzu" firstAttribute="top" secondItem="2mZ-HK-qsB" secondAttribute="bottom" constant="29" id="uKB-Hb-hqw"/>
+                <constraint firstItem="ey3-Ud-if3" firstAttribute="top" secondItem="JfD-YQ-rzu" secondAttribute="bottom" constant="16" id="1bi-oi-Gyg"/>
+                <constraint firstItem="JfD-YQ-rzu" firstAttribute="trailing" secondItem="ey3-Ud-if3" secondAttribute="trailing" id="6pB-j4-QVd"/>
+                <constraint firstItem="JfD-YQ-rzu" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="7" id="FTD-kB-h5Q"/>
+                <constraint firstItem="JfD-YQ-rzu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="FrN-vn-lru"/>
+                <constraint firstItem="JfD-YQ-rzu" firstAttribute="leading" secondItem="ey3-Ud-if3" secondAttribute="leading" id="Z3l-Ow-M1G"/>
+                <constraint firstAttribute="bottom" secondItem="ey3-Ud-if3" secondAttribute="bottom" constant="20" symbolic="YES" id="aFM-md-1Ag"/>
+                <constraint firstItem="JfD-YQ-rzu" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="m7J-WZ-Vye"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="33.5" y="53.5"/>

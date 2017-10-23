@@ -6,6 +6,17 @@ class AddNoteViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     
     var savedNote: Note?
+    var noteKeeper: NoteKeeper?
+    
+    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, noteKeeper: NoteKeeper?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.noteKeeper = noteKeeper
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.noteKeeper = nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +34,9 @@ class AddNoteViewController: UIViewController {
         saveButton.setTitleColor(saveButton.tintColor, for: .normal)
         saveButton.addTarget(self, action: #selector(self.saveNote(_:)), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveButton)
+        
+        // add noteTextView a blinking cursor
+        noteTextView.becomeFirstResponder()
         
         guard let note = savedNote else {return}
         titleTextField?.text = note.title
@@ -44,11 +58,15 @@ class AddNoteViewController: UIViewController {
         } else {
             let note = Note(title: title, content: content)
             
-            NoteKeeper.sharedInstance.addNote(note: note)
+            guard let noteKeeper = noteKeeper else {return}
+            if !noteKeeper.addNote(note: note) {
+                print("Note cannot be added with title: \(note.title)")
+            }
         }
         
-        let _ = self.navigationController?.popViewController(animated: true)
-        
+        //let _ = self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+
     }
     
     func setUpNote(_ note: Note) {
@@ -57,7 +75,9 @@ class AddNoteViewController: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        let _ = self.navigationController?.popViewController(animated: true)
+        //let _ = self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+
     }
     
     override func didReceiveMemoryWarning() {

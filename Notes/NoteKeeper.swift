@@ -2,9 +2,9 @@ import Foundation
 
 class NoteKeeper {
     
-    private init() { }
+    init() { }
     
-    static let sharedInstance = NoteKeeper()
+    //static let sharedInstance = NoteKeeper()
         
     var notes : [Note] = []
     

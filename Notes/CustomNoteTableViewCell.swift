@@ -2,6 +2,8 @@ import UIKit
 
 class CustomNoteTableViewCell: UITableViewCell {
     
+    var noteKeeper: NoteKeeper?
+
     // Variables
     private var _noteId: Int = -1
     
@@ -13,12 +15,16 @@ class CustomNoteTableViewCell: UITableViewCell {
     
     // Constructor
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     // Destructor
     deinit {
         actionButton.removeTarget(self, action: #selector(changeNoteStatus), for: .touchUpInside)
+    }
+    
+    func setNoteKeeper(noteKeeper: NoteKeeper) {
+        self.noteKeeper = noteKeeper
     }
     
     // Label getter
@@ -45,7 +51,8 @@ class CustomNoteTableViewCell: UITableViewCell {
     // UISwitch delegate if switch is on or off
     @objc func changeNoteStatus() {
         print("note id: \(noteId)")
-        NoteKeeper.sharedInstance.notes[noteId].isDone = actionButton.isOn
+        guard let noteKeeper = noteKeeper else {return}
+        noteKeeper.notes[noteId].isDone = actionButton.isOn
     }
     
     // Called in constructor to init all neccessary data

@@ -3,9 +3,7 @@ import Foundation
 class NoteKeeper {
     
     init() { }
-    
-    //static let sharedInstance = NoteKeeper()
-        
+            
     var notes : [Note] = []
     
     func addNote(note: Note) -> Bool {

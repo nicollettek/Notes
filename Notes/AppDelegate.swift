@@ -11,8 +11,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let noteKeeper = NoteKeeper()
         
-        let noteViewController = NotesViewController(nibName: "NotesViewController", bundle: Bundle.main, noteKeeper: noteKeeper)
-        let navigationViewController = UINavigationController(rootViewController: noteViewController)
+        let notesViewController = NotesViewController()
+        notesViewController.noteKeeper = noteKeeper
+        
+        let navigationViewController = UINavigationController(rootViewController: notesViewController)
+
         window!.rootViewController = navigationViewController
         window!.makeKeyAndVisible()
 

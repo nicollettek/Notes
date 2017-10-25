@@ -8,9 +8,24 @@ class AddNoteViewController: UIViewController {
     var savedNote: Note?
     var noteKeeper: NoteKeeper!
     
+    var row: Int?
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, row: Int) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.row = row
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         let backButton = UIButton(type: .custom)
         backButton.setTitle("Back", for: .normal)
@@ -33,7 +48,7 @@ class AddNoteViewController: UIViewController {
         
     }
     
-
+    
     @IBAction func saveNote(_ sender: UIButton) {
         guard let content = noteTextView?.text else {return}
         guard var title = titleTextField?.text else {return}
@@ -42,8 +57,10 @@ class AddNoteViewController: UIViewController {
         }
         
         if savedNote != nil {
-            savedNote?.content = content
-            savedNote?.title = title
+            guard let row = row else {return}
+            noteKeeper.notes[row].title = title
+            noteKeeper.notes[row].content = content
+            
         } else {
             let note = Note(title: title, content: content)
             
@@ -53,7 +70,7 @@ class AddNoteViewController: UIViewController {
         }
         
         self.dismiss(animated: true, completion: nil)
-
+        
     }
     
     @IBAction func backAction(_ sender: UIButton) {
@@ -64,5 +81,5 @@ class AddNoteViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }

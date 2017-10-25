@@ -1,6 +1,6 @@
 import Foundation
 
-class Note {
+struct Note {
     
     var title: String
     var content: String
@@ -11,4 +11,11 @@ class Note {
         self.content = content
         self.isDone = false
     }
+}
+
+extension Note: Equatable {
+    static func ==(lhs: Note, rhs: Note) -> Bool {
+        return lhs.title == rhs.title && lhs.content == rhs.content && lhs.isDone == rhs.isDone 
+    }
+    
 }

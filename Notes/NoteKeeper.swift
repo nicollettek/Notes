@@ -13,7 +13,7 @@ class NoteKeeper {
     
     func deleteNote(note: Note) -> Bool {
         let countNotesBeforeDelete = notes.count
-        notes = notes.filter({ $0 !== note })
+        notes = notes.filter({ $0 != note })
         let countNotesAfterDelete = notes.count
         
         if countNotesAfterDelete != countNotesBeforeDelete {

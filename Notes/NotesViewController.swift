@@ -35,7 +35,8 @@ class NotesViewController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func addNewNote(_ sender: UIBarButtonItem) {
-        let addNoteViewController = AddNoteViewController()
+        //let addNoteViewController = AddNoteViewController()
+        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil)
         addNoteViewController.noteKeeper = noteKeeper
         // create navigation controller
         let navigationViewController = UINavigationController(rootViewController: addNoteViewController)
@@ -48,7 +49,8 @@ extension NotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
         print("Value: \(noteKeeper.notes[indexPath.row].title)")
-        let addNoteViewController = AddNoteViewController()
+        //let addNoteViewController = AddNoteViewController()
+        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil, row: indexPath.row)
         addNoteViewController.noteKeeper = noteKeeper
         addNoteViewController.savedNote = noteKeeper.notes[indexPath.row]
         // create navigation controller

@@ -10,19 +10,6 @@ class AddNoteViewController: UIViewController {
     
     var row: Int?
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, row: Int) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.row = row
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

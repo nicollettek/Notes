@@ -18,11 +18,13 @@ class NotesViewController: UIViewController, UITableViewDataSource {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addButton)
         self.navigationItem.title = "Notes"
         
-        notesTableView.register(CustomNoteTableViewCell.self, forCellReuseIdentifier: FirstNoteCell)
+        notesTableView.register(MyCustomCell.self, forCellReuseIdentifier: "myCell")
         notesTableView.dataSource = self
         notesTableView.delegate = self
         notesTableView.rowHeight = 50
         
+        // fix tableview separators 
+        notesTableView.separatorInset = UIEdgeInsets.zero
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,8 +37,7 @@ class NotesViewController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func addNewNote(_ sender: UIBarButtonItem) {
-        //let addNoteViewController = AddNoteViewController()
-        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil)
+        let addNoteViewController = AddNoteViewController()
         addNoteViewController.noteKeeper = noteKeeper
         // create navigation controller
         let navigationViewController = UINavigationController(rootViewController: addNoteViewController)
@@ -49,8 +50,10 @@ extension NotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
         print("Value: \(noteKeeper.notes[indexPath.row].title)")
-        //let addNoteViewController = AddNoteViewController()
-        let addNoteViewController = AddNoteViewController(nibName: "AddNoteViewController", bundle: nil, row: indexPath.row)
+        print("Value: \(noteKeeper.notes[indexPath.row].isDone)")
+
+        let addNoteViewController = AddNoteViewController()
+        addNoteViewController.row = indexPath.row
         addNoteViewController.noteKeeper = noteKeeper
         addNoteViewController.savedNote = noteKeeper.notes[indexPath.row]
         // create navigation controller
@@ -63,11 +66,21 @@ extension NotesViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FirstNoteCell, for: indexPath as IndexPath) as! CustomNoteTableViewCell
-        cell.setNoteKeeper(noteKeeper: noteKeeper)
-        cell.textLabel!.text = "\(noteKeeper.notes[indexPath.row].title)"
-        cell.noteId = indexPath.row
+        var cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath as IndexPath) as! MyCustomCell
+        
+        tableView.register(UINib.init(nibName: "MyCustomCell", bundle: nil), forCellReuseIdentifier: "myCell")
+        cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath as IndexPath) as! MyCustomCell
+ 
         return cell
+    }
+   
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let c = cell as! MyCustomCell
+        c.cellLabel!.text = "\(noteKeeper.notes[indexPath.row].title)"
+        c.noteKeeper = noteKeeper
+        c.switchButtonIsDonе!.isOn = noteKeeper.notes[indexPath.row].isDone
+        c.noteId = indexPath.row
+
     }
 }
 

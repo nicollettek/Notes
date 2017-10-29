@@ -1,15 +1,17 @@
 import UIKit
 
+protocol CustomCellDelegate {
+    func changeUISwitchStatus(cellId: Int, isOn: Bool)
+}
+
 class MyCustomCell: UITableViewCell {
 
     // Variables
 
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var switchButtonIsDonе: UISwitch!
-    
-    private var _noteId: Int = -1
-    var noteKeeper: NoteKeeper!
-    
+    var cellId: Int = -1
+    var delegate: CustomCellDelegate?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -19,28 +21,9 @@ class MyCustomCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    // Set and Get note id when note status is changed
-    var noteId: Int {
-        set { _noteId =  newValue }
-        get { return _noteId }
-    }
-
-    
     @IBAction func changeNoteStatus(_ sender: UISwitch) {
-        if  noteId != -1 {
-            noteKeeper.notes[noteId].isDone = switchButtonIsDonе.isOn
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        delegate?.changeUISwitchStatus(cellId: cellId, isOn: sender.isOn)
+        
     }
-    
 }

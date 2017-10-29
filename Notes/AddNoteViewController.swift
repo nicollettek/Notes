@@ -2,8 +2,8 @@ import UIKit
 
 class AddNoteViewController: UIViewController {
     
-    @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var noteTextView: UITextView!
     
     var savedNote: Note?
     var noteKeeper: NoteKeeper!
@@ -20,6 +20,7 @@ class AddNoteViewController: UIViewController {
         backButton.addTarget(self, action: #selector(self.backAction(_:)), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
         
+        
         let saveButton = UIButton(type: .custom)
         saveButton.setTitle("Save", for: .normal)
         saveButton.setTitleColor(saveButton.tintColor, for: .normal)
@@ -32,9 +33,16 @@ class AddNoteViewController: UIViewController {
         guard let note = savedNote else {return}
         titleTextField?.text = note.title
         noteTextView?.text = note.content
-        
     }
     
+    @IBAction func limitLabelLength(_ sender: UITextField) {
+        guard let titleText = sender.text else {return}
+        let titleLength = titleText.characters.count
+        if titleLength > 15 {
+            // User cannot type more than 15 characters
+            sender.text = String(titleText.prefix(15))
+        }
+    }
     
     @IBAction func saveNote(_ sender: UIButton) {
         guard let content = noteTextView?.text else {return}

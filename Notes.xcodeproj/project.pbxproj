@@ -10,7 +10,6 @@
 		AFBFFB791FA0ED7F00CFF006 /* MyCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBFFB771FA0ED7F00CFF006 /* MyCustomCell.swift */; };
 		AFBFFB7A1FA0ED7F00CFF006 /* MyCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFBFFB781FA0ED7F00CFF006 /* MyCustomCell.xib */; };
 		AFC84A011F9930420053541C /* NoteKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC84A001F9930420053541C /* NoteKeeper.swift */; };
-		AFC84A031F9942280053541C /* CustomNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC84A021F9942280053541C /* CustomNoteTableViewCell.swift */; };
 		AFCE7F4C1F97D76900E14BA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCE7F4B1F97D76900E14BA4 /* AppDelegate.swift */; };
 		AFCE7F531F97D76900E14BA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFCE7F521F97D76900E14BA4 /* Assets.xcassets */; };
 		AFCE7F561F97D76900E14BA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFCE7F541F97D76900E14BA4 /* LaunchScreen.storyboard */; };
@@ -25,7 +24,6 @@
 		AFBFFB771FA0ED7F00CFF006 /* MyCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomCell.swift; sourceTree = "<group>"; };
 		AFBFFB781FA0ED7F00CFF006 /* MyCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCustomCell.xib; sourceTree = "<group>"; };
 		AFC84A001F9930420053541C /* NoteKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteKeeper.swift; sourceTree = "<group>"; };
-		AFC84A021F9942280053541C /* CustomNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoteTableViewCell.swift; sourceTree = "<group>"; };
 		AFCE7F481F97D76900E14BA4 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFCE7F4B1F97D76900E14BA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFCE7F521F97D76900E14BA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 			children = (
 				AFBFFB771FA0ED7F00CFF006 /* MyCustomCell.swift */,
 				AFBFFB781FA0ED7F00CFF006 /* MyCustomCell.xib */,
-				AFC84A021F9942280053541C /* CustomNoteTableViewCell.swift */,
 				AFC84A001F9930420053541C /* NoteKeeper.swift */,
 				AFCE7F691F98A89700E14BA4 /* Note.swift */,
 				AFCE7F651F97EEFA00E14BA4 /* AddNoteViewController.swift */,
@@ -164,7 +161,6 @@
 				AFCE7F661F97EEFA00E14BA4 /* AddNoteViewController.swift in Sources */,
 				AFBFFB791FA0ED7F00CFF006 /* MyCustomCell.swift in Sources */,
 				AFC84A011F9930420053541C /* NoteKeeper.swift in Sources */,
-				AFC84A031F9942280053541C /* CustomNoteTableViewCell.swift in Sources */,
 				AFCE7F6A1F98A89700E14BA4 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

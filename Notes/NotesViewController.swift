@@ -45,7 +45,13 @@ class NotesViewController: UIViewController, UITableViewDataSource {
     }
 }
 
-extension NotesViewController: UITableViewDelegate {
+extension NotesViewController: UITableViewDelegate, CustomCellDelegate {
+    
+    func changeUISwitchStatus(cellId: Int, isOn: Bool) {
+        if  cellId != -1 {
+            noteKeeper.notes[cellId].isDone = isOn
+        }
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
@@ -77,9 +83,9 @@ extension NotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let c = cell as! MyCustomCell
         c.cellLabel!.text = "\(noteKeeper.notes[indexPath.row].title)"
-        c.noteKeeper = noteKeeper
+        c.delegate = self
         c.switchButtonIsDonе!.isOn = noteKeeper.notes[indexPath.row].isDone
-        c.noteId = indexPath.row
+        c.cellId = indexPath.row
 
     }
 }

@@ -45,18 +45,18 @@ class NotesViewController: UIViewController, UITableViewDataSource {
     }
 }
 
-extension NotesViewController: UITableViewDelegate, CustomCellDelegate, AddNoteDelegate {
+extension NotesViewController: UITableViewDelegate, MyCustomCellDelegate, AddNoteViewControllerDelegate {
     
-    func updateTitleAndContent(title: String, content: String, cellId: Int) {
-        if cellId == -1 {
+    func updateTitleAndContent(title: String, content: String, noteId: Int) {
+        if noteId == -1 {
             let note = Note(title: title, content: content)
             let noteIsAdded = noteKeeper.addNote(note: note)
             if !noteIsAdded {
                 print("Note not added")
             }
         } else {
-            noteKeeper.notes[cellId].title = title
-            noteKeeper.notes[cellId].content = content
+            noteKeeper.notes[noteId].title = title
+            noteKeeper.notes[noteId].content = content
         }
     }
     
@@ -75,7 +75,7 @@ extension NotesViewController: UITableViewDelegate, CustomCellDelegate, AddNoteD
         addNoteViewController.delegate = self
         addNoteViewController.noteTitle = noteKeeper.notes[indexPath.row].title
         addNoteViewController.noteContent = noteKeeper.notes[indexPath.row].content
-        addNoteViewController.cellId = indexPath.row
+        addNoteViewController.noteId = indexPath.row
         
         // create navigation controller
         let navigationViewController = UINavigationController(rootViewController: addNoteViewController)

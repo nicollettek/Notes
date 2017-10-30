@@ -1,7 +1,7 @@
 import UIKit
 
-protocol AddNoteDelegate {
-    func updateTitleAndContent(title: String, content: String, cellId: Int)
+protocol AddNoteViewControllerDelegate: class {
+    func updateTitleAndContent(title: String, content: String, noteId: Int)
 }
 
 class AddNoteViewController: UIViewController {
@@ -9,10 +9,10 @@ class AddNoteViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var noteTextView: UITextView!
     
-    var cellId: Int = -1
+    var noteId: Int = -1
     var noteTitle: String?
     var noteContent: String?
-    var delegate: AddNoteDelegate?
+    weak var delegate: AddNoteViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class AddNoteViewController: UIViewController {
         
         noteTitle = title
         noteContent = content
-        delegate?.updateTitleAndContent(title: title, content: content, cellId: cellId)
+        delegate?.updateTitleAndContent(title: title, content: content, noteId: noteId)
         
         self.dismiss(animated: true, completion: nil)
         

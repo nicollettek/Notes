@@ -1,14 +1,18 @@
 import UIKit
 
+protocol AddNoteDelegate {
+    func updateTitleAndContent(title: String, content: String, cellId: Int)
+}
+
 class AddNoteViewController: UIViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var noteTextView: UITextView!
     
-    var savedNote: Note?
-    var noteKeeper: NoteKeeper!
-    
-    var row: Int?
+    var cellId: Int = -1
+    var noteTitle: String?
+    var noteContent: String?
+    var delegate: AddNoteDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +24,6 @@ class AddNoteViewController: UIViewController {
         backButton.addTarget(self, action: #selector(self.backAction(_:)), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
         
-        
         let saveButton = UIButton(type: .custom)
         saveButton.setTitle("Save", for: .normal)
         saveButton.setTitleColor(saveButton.tintColor, for: .normal)
@@ -30,9 +33,9 @@ class AddNoteViewController: UIViewController {
         // add noteTextView a blinking cursor
         noteTextView.becomeFirstResponder()
         
-        guard let note = savedNote else {return}
-        titleTextField?.text = note.title
-        noteTextView?.text = note.content
+        titleTextField?.text = noteTitle
+        noteTextView?.text = noteContent
+
     }
     
     @IBAction func limitLabelLength(_ sender: UITextField) {
@@ -45,24 +48,15 @@ class AddNoteViewController: UIViewController {
     }
     
     @IBAction func saveNote(_ sender: UIButton) {
-        guard let content = noteTextView?.text else {return}
         guard var title = titleTextField?.text else {return}
+        guard let content = noteTextView?.text else {return}
         if title.isEmpty {
             title = "Note"
         }
         
-        if savedNote != nil {
-            guard let row = row else {return}
-            noteKeeper.notes[row].title = title
-            noteKeeper.notes[row].content = content
-            
-        } else {
-            let note = Note(title: title, content: content)
-            
-            if !noteKeeper.addNote(note: note) {
-                print("Note cannot be added with title: \(note.title)")
-            }
-        }
+        noteTitle = title
+        noteContent = content
+        delegate?.updateTitleAndContent(title: title, content: content, cellId: cellId)
         
         self.dismiss(animated: true, completion: nil)
         

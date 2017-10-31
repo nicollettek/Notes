@@ -46,23 +46,27 @@ class NotesViewController: UIViewController, UITableViewDataSource {
 }
 
 extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, AddNoteViewControllerDelegate {
-
-    func updateTitleAndContent(_ addNoteViewController: AddNoteViewController, title: String, content: String, noteId: Int) {
-        if noteId == -1 {
-            let note = Note(title: title, content: content)
+    
+    func addNoteViewControllerUpdateTitleAndContent(_ addNoteViewController: AddNoteViewController) {
+        
+        guard let noteTitle = addNoteViewController.noteTitle else {return}
+        guard let noteContent = addNoteViewController.noteContent else {return}
+        
+        if addNoteViewController.noteId == -1 {
+            let note = Note(title: noteTitle, content: noteContent)
             let noteIsAdded = noteKeeper.addNote(note: note)
             if !noteIsAdded {
                 print("Note not added")
             }
         } else {
-            noteKeeper.notes[noteId].title = title
-            noteKeeper.notes[noteId].content = content
+            noteKeeper.notes[addNoteViewController.noteId].title = noteTitle
+            noteKeeper.notes[addNoteViewController.noteId].content = noteContent
         }
     }
     
-    func changeUISwitchStatus(_ noteTableViewCell: NoteTableViewCell, cellId: Int, isOn: Bool) {
-        if  cellId != -1 {
-            noteKeeper.notes[cellId].isDone = isOn
+    func noteTableViewCellChangeUISwitchStatus(_ noteTableViewCell: NoteTableViewCell, didChangeSwitchStatus isOn: Bool) {
+        if  noteTableViewCell.cellId != -1 {
+            noteKeeper.notes[noteTableViewCell.cellId].isDone = isOn
         }
     }
     

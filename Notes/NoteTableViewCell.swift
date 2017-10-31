@@ -1,7 +1,7 @@
 import UIKit
 
 protocol NoteTableViewCellDelegate: class {
-    func changeUISwitchStatus(_ noteTableViewCell: NoteTableViewCell, cellId: Int, isOn: Bool)
+    func noteTableViewCellChangeUISwitchStatus(_ noteTableViewCell: NoteTableViewCell, didChangeSwitchStatus isOn: Bool)
 }
 
 class NoteTableViewCell: UITableViewCell {
@@ -22,7 +22,7 @@ class NoteTableViewCell: UITableViewCell {
     
     @IBAction func changeNoteStatus(_ sender: UISwitch) {
 
-        delegate?.changeUISwitchStatus(self, cellId: cellId, isOn: sender.isOn)
+        delegate?.noteTableViewCellChangeUISwitchStatus(self, didChangeSwitchStatus: sender.isOn)
         
     }
 }

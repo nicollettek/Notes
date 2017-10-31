@@ -1,7 +1,7 @@
 import UIKit
 
 protocol MyCustomCellDelegate: class {
-    func changeUISwitchStatus(cellId: Int, isOn: Bool)
+    func changeUISwitchStatus(_ myCustomCell: MyCustomCell, cellId: Int, isOn: Bool)
 }
 
 class MyCustomCell: UITableViewCell {
@@ -22,7 +22,7 @@ class MyCustomCell: UITableViewCell {
     
     @IBAction func changeNoteStatus(_ sender: UISwitch) {
 
-        delegate?.changeUISwitchStatus(cellId: cellId, isOn: sender.isOn)
+        delegate?.changeUISwitchStatus(self, cellId: cellId, isOn: sender.isOn)
         
     }
 }

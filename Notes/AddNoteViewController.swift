@@ -1,7 +1,7 @@
 import UIKit
 
 protocol AddNoteViewControllerDelegate: class {
-    func updateTitleAndContent(title: String, content: String, noteId: Int)
+    func updateTitleAndContent(_ addNoteViewController: AddNoteViewController, title: String, content: String, noteId: Int)
 }
 
 class AddNoteViewController: UIViewController {
@@ -56,7 +56,7 @@ class AddNoteViewController: UIViewController {
         
         noteTitle = title
         noteContent = content
-        delegate?.updateTitleAndContent(title: title, content: content, noteId: noteId)
+        delegate?.updateTitleAndContent(self, title: title, content: content, noteId: noteId)
         
         self.dismiss(animated: true, completion: nil)
         

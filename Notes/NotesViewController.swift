@@ -46,8 +46,8 @@ class NotesViewController: UIViewController, UITableViewDataSource {
 }
 
 extension NotesViewController: UITableViewDelegate, MyCustomCellDelegate, AddNoteViewControllerDelegate {
-    
-    func updateTitleAndContent(title: String, content: String, noteId: Int) {
+
+    func updateTitleAndContent(_ addNoteViewController: AddNoteViewController, title: String, content: String, noteId: Int) {
         if noteId == -1 {
             let note = Note(title: title, content: content)
             let noteIsAdded = noteKeeper.addNote(note: note)
@@ -60,7 +60,7 @@ extension NotesViewController: UITableViewDelegate, MyCustomCellDelegate, AddNot
         }
     }
     
-    func changeUISwitchStatus(cellId: Int, isOn: Bool) {
+    func changeUISwitchStatus(_ myCustomCell: MyCustomCell, cellId: Int, isOn: Bool) {
         if  cellId != -1 {
             noteKeeper.notes[cellId].isDone = isOn
         }

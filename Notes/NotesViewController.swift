@@ -42,25 +42,31 @@ class NotesViewController: UIViewController, UITableViewDataSource {
         // create navigation controller
         let navigationViewController = UINavigationController(rootViewController: addNoteViewController)
         self.present(navigationViewController, animated: true, completion: nil)
+        
     }
 }
 
 extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, AddNoteViewControllerDelegate {
     
+    func addNoteViewControllerDismiss(_ addNoteViewController: AddNoteViewController) {
+        addNoteViewController.dismiss(animated: true, completion: nil)
+    }
+    
     func addNoteViewControllerUpdateTitleAndContent(_ addNoteViewController: AddNoteViewController) {
         
         guard let noteTitle = addNoteViewController.noteTitle else {return}
         guard let noteContent = addNoteViewController.noteContent else {return}
-        
-        if addNoteViewController.noteId == -1 {
+
+        if addNoteViewController.noteId == nil {
             let note = Note(title: noteTitle, content: noteContent)
             let noteIsAdded = noteKeeper.addNote(note: note)
             if !noteIsAdded {
                 print("Note not added")
             }
         } else {
-            noteKeeper.notes[addNoteViewController.noteId].title = noteTitle
-            noteKeeper.notes[addNoteViewController.noteId].content = noteContent
+            guard let noteId = addNoteViewController.noteId else {return}
+            noteKeeper.notes[noteId].title = noteTitle
+            noteKeeper.notes[noteId].content = noteContent
         }
     }
     

@@ -2,6 +2,7 @@ import UIKit
 
 protocol AddNoteViewControllerDelegate: class {
     func addNoteViewControllerUpdateTitleAndContent(_ addNoteViewController: AddNoteViewController)
+    func addNoteViewControllerDismiss(_ addNoteViewController: AddNoteViewController)
 }
 
 class AddNoteViewController: UIViewController {
@@ -9,7 +10,7 @@ class AddNoteViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var noteTextView: UITextView!
     
-    var noteId: Int = -1
+    var noteId: Int? = nil
     var noteTitle: String?
     var noteContent: String?
     weak var delegate: AddNoteViewControllerDelegate?
@@ -35,7 +36,7 @@ class AddNoteViewController: UIViewController {
         
         titleTextField?.text = noteTitle
         noteTextView?.text = noteContent
-
+        
     }
     
     @IBAction func limitLabelLength(_ sender: UITextField) {
@@ -58,12 +59,11 @@ class AddNoteViewController: UIViewController {
         noteContent = content
         delegate?.addNoteViewControllerUpdateTitleAndContent(self)
         
-        self.dismiss(animated: true, completion: nil)
-        
+        delegate?.addNoteViewControllerDismiss(self)
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        delegate?.addNoteViewControllerDismiss(self)
     }
     
     override func didReceiveMemoryWarning() {

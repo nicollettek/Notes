@@ -1,16 +1,16 @@
 import UIKit
 
-protocol MyCustomCellDelegate: class {
-    func changeUISwitchStatus(_ myCustomCell: MyCustomCell, cellId: Int, isOn: Bool)
+protocol NoteTableViewCellDelegate: class {
+    func changeUISwitchStatus(_ noteTableViewCell: NoteTableViewCell, cellId: Int, isOn: Bool)
 }
 
-class MyCustomCell: UITableViewCell {
+class NoteTableViewCell: UITableViewCell {
 
     // Variables
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var switchButtonIsDonе: UISwitch!
     var cellId: Int = -1
-    weak var delegate: MyCustomCellDelegate?
+    weak var delegate: NoteTableViewCellDelegate?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

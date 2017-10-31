@@ -18,7 +18,7 @@ class NotesViewController: UIViewController, UITableViewDataSource {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addButton)
         self.navigationItem.title = "Notes"
         
-        notesTableView.register(UINib.init(nibName: "MyCustomCell", bundle: nil), forCellReuseIdentifier: "myCell")
+        notesTableView.register(UINib.init(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "myCell")
         notesTableView.dataSource = self
         notesTableView.delegate = self
         notesTableView.rowHeight = 50
@@ -45,7 +45,7 @@ class NotesViewController: UIViewController, UITableViewDataSource {
     }
 }
 
-extension NotesViewController: UITableViewDelegate, MyCustomCellDelegate, AddNoteViewControllerDelegate {
+extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, AddNoteViewControllerDelegate {
 
     func updateTitleAndContent(_ addNoteViewController: AddNoteViewController, title: String, content: String, noteId: Int) {
         if noteId == -1 {
@@ -60,7 +60,7 @@ extension NotesViewController: UITableViewDelegate, MyCustomCellDelegate, AddNot
         }
     }
     
-    func changeUISwitchStatus(_ myCustomCell: MyCustomCell, cellId: Int, isOn: Bool) {
+    func changeUISwitchStatus(_ noteTableViewCell: NoteTableViewCell, cellId: Int, isOn: Bool) {
         if  cellId != -1 {
             noteKeeper.notes[cellId].isDone = isOn
         }
@@ -87,7 +87,7 @@ extension NotesViewController: UITableViewDelegate, MyCustomCellDelegate, AddNot
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath as IndexPath) as! MyCustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath as IndexPath) as! NoteTableViewCell
         cell.cellLabel!.text = "\(noteKeeper.notes[indexPath.row].title)"
         cell.delegate = self
         cell.switchButtonIsDonе!.isOn = noteKeeper.notes[indexPath.row].isDone

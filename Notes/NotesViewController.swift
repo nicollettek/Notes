@@ -116,7 +116,7 @@ extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, A
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             // delete data and row
-            if noteKeeper.deleteNoteById(noteId: indexPath.row) {
+            if noteKeeper.deleteNote(note: noteKeeper.notes[indexPath.row]) {
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 print("note deleted")
             }

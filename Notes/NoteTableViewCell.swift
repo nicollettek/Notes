@@ -9,7 +9,7 @@ class NoteTableViewCell: UITableViewCell {
     // Variables
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var switchButtonIsDonе: UISwitch!
-    var cellId: Int = -1
+    var cellId: Int? = nil
     weak var delegate: NoteTableViewCellDelegate?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

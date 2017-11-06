@@ -15,6 +15,18 @@ class NoteKeeper {
         let countNotesBeforeDelete = notes.count
         notes = notes.filter({ $0 != note })
         let countNotesAfterDelete = notes.count
+
+        if countNotesAfterDelete != countNotesBeforeDelete {
+            return true
+        }
+
+        return false
+    }
+    
+    func deleteNoteById(noteId: Int) -> Bool {
+        let countNotesBeforeDelete = notes.count
+        notes.remove(at: noteId)
+        let countNotesAfterDelete = notes.count
         
         if countNotesAfterDelete != countNotesBeforeDelete {
             return true

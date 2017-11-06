@@ -48,7 +48,11 @@ class NotesViewController: UIViewController, UITableViewDataSource {
 
 extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, AddNoteViewControllerDelegate {
     
-    func addNoteViewControllerDismiss(_ addNoteViewController: AddNoteViewController) {
+    func addNoteViewControllerDidSave(_ addNoteViewController: AddNoteViewController) {
+        addNoteViewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func addNoteViewControllerCancel(_ addNoteViewController: AddNoteViewController) {
         addNoteViewController.dismiss(animated: true, completion: nil)
     }
     
@@ -71,8 +75,8 @@ extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, A
     }
     
     func noteTableViewCellChangeUISwitchStatus(_ noteTableViewCell: NoteTableViewCell, didChangeSwitchStatus isOn: Bool) {
-        if  noteTableViewCell.cellId != -1 {
-            noteKeeper.notes[noteTableViewCell.cellId].isDone = isOn
+        if  noteTableViewCell.cellId != nil {
+            noteKeeper.notes[noteTableViewCell.cellId!].isDone = isOn
         }
     }
     
@@ -104,5 +108,21 @@ extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, A
         cell.cellId = indexPath.row
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // delete data and row
+            if noteKeeper.deleteNoteById(noteId: indexPath.row) {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                print("note deleted")
+            }
+            
+        }
+    }
+
 }
 

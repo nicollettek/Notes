@@ -2,7 +2,9 @@ import UIKit
 
 protocol AddNoteViewControllerDelegate: class {
     func addNoteViewControllerUpdateTitleAndContent(_ addNoteViewController: AddNoteViewController)
-    func addNoteViewControllerDismiss(_ addNoteViewController: AddNoteViewController)
+    func addNoteViewControllerDidSave(_ addNoteViewController: AddNoteViewController)
+    func addNoteViewControllerCancel(_ addNoteViewController: AddNoteViewController)
+
 }
 
 class AddNoteViewController: UIViewController {
@@ -41,7 +43,7 @@ class AddNoteViewController: UIViewController {
     
     @IBAction func limitLabelLength(_ sender: UITextField) {
         guard let titleText = sender.text else {return}
-        let titleLength = titleText.characters.count
+        let titleLength = titleText.count
         if titleLength > 15 {
             // User cannot type more than 15 characters
             sender.text = String(titleText.prefix(15))
@@ -58,12 +60,12 @@ class AddNoteViewController: UIViewController {
         noteTitle = title
         noteContent = content
         delegate?.addNoteViewControllerUpdateTitleAndContent(self)
-        
-        delegate?.addNoteViewControllerDismiss(self)
+        delegate?.addNoteViewControllerDidSave(self)
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        delegate?.addNoteViewControllerDismiss(self)
+        delegate?.addNoteViewControllerCancel(self)
+
     }
     
     override func didReceiveMemoryWarning() {

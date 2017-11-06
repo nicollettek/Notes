@@ -14,8 +14,12 @@ struct Note {
 }
 
 extension Note: Equatable {
-    static func ==(lhs: Note, rhs: Note) -> Bool {
+    static func == (lhs: Note, rhs: Note) -> Bool {
         return lhs.title == rhs.title && lhs.content == rhs.content && lhs.isDone == rhs.isDone 
+    }
+    
+    static func != (lhs: Note, rhs: Note) -> Bool {
+        return !(lhs == rhs)
     }
     
 }

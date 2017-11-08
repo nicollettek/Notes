@@ -18,7 +18,8 @@ class NotesViewController: UIViewController, UITableViewDataSource {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addButton)
         self.navigationItem.title = "Notes"
         
-        notesTableView.register(UINib.init(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "myCell")
+        let noteTableViewCellNib = UINib(nibName: NoteTableViewCell.nibName, bundle: nil)
+        notesTableView.register(noteTableViewCellNib, forCellReuseIdentifier: NoteTableViewCell.reuseIdentifier)
         notesTableView.dataSource = self
         notesTableView.delegate = self
         notesTableView.rowHeight = 50
@@ -101,7 +102,8 @@ extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, A
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath as IndexPath) as! NoteTableViewCell
+        
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as NoteTableViewCell
         cell.cellLabel!.text = "\(noteKeeper.notes[indexPath.row].title)"
         cell.delegate = self
         cell.switchButtonIsDonе!.isOn = noteKeeper.notes[indexPath.row].isDone
@@ -120,7 +122,6 @@ extension NotesViewController: UITableViewDelegate, NoteTableViewCellDelegate, A
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 print("note deleted")
             }
-            
         }
     }
 

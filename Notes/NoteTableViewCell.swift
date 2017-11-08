@@ -26,3 +26,6 @@ class NoteTableViewCell: UITableViewCell {
         
     }
 }
+
+extension NoteTableViewCell: ReusableView, NibLoadableView {
+}

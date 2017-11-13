@@ -5,19 +5,19 @@ struct Note {
     var title: String
     var content: String
     var isDone: Bool
-    var noteId: UUID
+    var id: UUID
     
     init(title: String, content: String) {
         self.title = title
         self.content = content
         self.isDone = false
-        self.noteId = UUID.init()
+        self.id = UUID()
     }
 }
 
 extension Note: Equatable {
     static func == (lhs: Note, rhs: Note) -> Bool {
-        return lhs.noteId == rhs.noteId
+        return lhs.id == rhs.id
     }
     
     static func != (lhs: Note, rhs: Note) -> Bool {

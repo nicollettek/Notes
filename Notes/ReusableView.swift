@@ -11,7 +11,7 @@ extension ReusableView where Self: UIView {
 
 extension UITableView {
     func dequeueReusableCell<T: UITableViewCell>(forIndexPath indexPath: IndexPath) -> T where T: ReusableView {
-        guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath as IndexPath) as? T else {
+        guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
             fatalError("Could not deque cell with identifier: \(T.reuseIdentifier)")
         }
         
